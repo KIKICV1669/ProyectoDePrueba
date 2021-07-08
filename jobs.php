@@ -1,40 +1,8 @@
 <?php
-    class Job
-    {
-        private $title;
-        public $description;
-        public $visible = true;
-        public $months;
 
-        public function __construct($title, $description)
-        {
-            $this -> setTitle($title);
-            $this -> description = $description;
-        }
+    require 'app/models/Job.php';
+    require 'app/models/Project.php';
 
-        public function setTitle($title)
-        {
-            if($title == '')
-            {
-                $this -> title = 'N/A';
-            }
-            else
-            {
-                $this -> title = $title;
-            }
-        }
-
-        public function getTitle()
-        {
-            return $this -> title;
-        }
-        public function getDurationAsString()
-        {
-            $years = floor($this -> months / 12);
-            $extraMonths = $this -> months % 12;
-            return "$years years $extraMonths months";
-        }
-    }
     $job1 = new Job('Python Developer', 'This is an awesome job!!!');
     $job1 -> months = 16;
 
@@ -44,39 +12,19 @@
     $job3 = new Job('', 'This is an awesome job!!!');
     $job3 -> months = 24;
 
+    $project1 = new Project('Project 1', 'Description 1');
+
     $jobs = [
         $job1,
         $job2,
         $job3
-        //[
-        //    'title' => 'PHP Developer',
-        //    'description' => 'This is an awesome job!!!',
-        //    'visible' => true,
-        //    'months' => 16
-        //],
-        //[
-        //    'title' => 'Python Dev',
-        //    'visible' => false,
-        //    'months' => 14
-        //],
-        //[
-        //    'title' => 'Devops',
-        //    'visible' => true,
-        //    'months' => 5
-        //],
-        //[
-        //    'title' => 'Node Dev',
-        //    'visible' => true,
-        //    'months' => 24
-        //],
-        //[
-        //    'title' => 'Frontend Dev',
-        //    'visible' => true,
-        //    'months' => 3
-        //]
+    ];
+
+    $projects = [
+        $project1
     ];
     
-    function printJob($job)
+    function printElement($job)
     {
         
         if($job -> visible == false)
