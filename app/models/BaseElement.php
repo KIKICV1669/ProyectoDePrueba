@@ -1,5 +1,8 @@
 <?php
-class BaseElement
+
+namespace App\Models;
+
+class BaseElement implements Printable
 {
     protected $title;
     public $description;
@@ -33,5 +36,9 @@ class BaseElement
         $years = floor($this -> months / 12);
         $extraMonths = $this -> months % 12;
         return "$years years $extraMonths months";
+    }
+    public function getDescription()
+    {
+        return $this -> description;
     }
 }

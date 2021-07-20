@@ -1,38 +1,20 @@
 <?php
 
-    require 'app/models/Job.php';
-    require 'app/models/Project.php';
+    require_once 'vendor/autoload.php';
 
-    $job1 = new Job('Python Developer', 'This is an awesome job!!!');
-    $job1 -> months = 16;
+    use App\Models\{Job, Project};
 
-    $job2 = new Job('PHP Developer', 'This is an awesome job!!!');
-    $job2 -> months = 24;
+    $jobs = Job::all();
+    $projects = Project::all();
 
-    $job3 = new Job('', 'This is an awesome job!!!');
-    $job3 -> months = 24;
-
-    $project1 = new Project('Project 1', 'Description 1');
-
-    $jobs = [
-        $job1,
-        $job2,
-        $job3
-    ];
-
-    $projects = [
-        $project1
-    ];
-    
     function printElement($job)
     {
-        
-        if($job -> visible == false)
-        {
-        return;
-        }
+        //if($job -> visible == false)
+        //{
+        //    return;
+        //}
         echo '<li class="work-position">';
-        echo '<h5>' . $job -> getTitle() . '</h5>';
+        echo '<h5>' . $job -> title . '</h5>';
         echo '<p>' . $job -> description . '</p>';
         echo '<p>' . $job ->getDurationAsString() . '</p>';
         echo '<strong>Achievements:</strong>';
