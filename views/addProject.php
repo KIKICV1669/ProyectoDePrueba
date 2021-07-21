@@ -1,30 +1,3 @@
-<?php
-require_once 'vendor/autoload.php';
-use Illuminate\Database\Capsule\Manager as Capsule;
-use App\Models\Project;
-
-$capsule = new Capsule;
-
-$capsule->addConnection([
-    'driver'    => 'mysql',
-    'host'      => 'localhost',
-    'database'  => 'cursophp',
-    'username'  => 'root',
-    'password'  => '',
-    'charset'   => 'utf8',
-    'collation' => 'utf8_unicode_ci',
-    'prefix'    => '',
-]);
-$capsule->setAsGlobal();
-$capsule->bootEloquent();
-
-if(!empty($_POST)) {
-	$project = new Project();
-	$project->title = $_POST['title'];
-	$project->description = $_POST['description'];
-	$project->save();
-}
-?>
 <html>
 <head>
   <meta charset="utf-8">
@@ -36,7 +9,7 @@ if(!empty($_POST)) {
 </head>
 <body>
 	<h1>Add Project</h1>
-	<form action="addProject.php" method="post">
+	<form action="/projects/add" method="post">
 		<label for="title">Title</label>
 		<input type="text" name="title"><br>
 		<label for="description">Description</label>
