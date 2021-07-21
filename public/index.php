@@ -7,7 +7,7 @@ error_reporting(E_ALL);
 require_once '../vendor/autoload.php';
 
 use Illuminate\Database\Capsule\Manager as Capsule;
-use App\Models\{Job, Project};
+use Aura\Router\RouterContainer;
 
 $capsule = new Capsule;
 
@@ -28,14 +28,36 @@ $capsule->setAsGlobal();
   // Setup the Eloquent ORM... (optional; unless you've used setEventDispatcher())
 $capsule->bootEloquent();
 
-$route = $_GET['route'] ?? '/';
+$request = Zend\Diactoros\ServerRequestFactory::fromGlobals(
+  $_SERVER,
+  $_GET,
+  $_POST,
+  $_COOKIE,
+  $_FILES
+);
 
-if($route == '/')
+$routerContainer = new RouterContainer();
+
+$map = $routerContainer->getMap();
+$map->get('index', '/', [
+  'controller' => 'app\controllers\IndexController',
+  'action' => 'indexAction'
+]);
+$map->get('addJobs', '/jobs/add', '../addJob.php');
+
+$matcher = $routerContainer->getMatcher();
+$route = $matcher->match($request);
+if(!$route)
 {
-    require '../index.php';
+  echo 'No route';
 }
-elseif($route == 'addJob')
+else
 {
-    require '../addJob.php';
+  $handlerData = $route->handler;
+  $controllerName = $handlerData['controller'];
+  $actionName = $handlerData['action'];
+
+  $controller = new $controllerName;
+  $controller->$actionName();
 }
 
