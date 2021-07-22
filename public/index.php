@@ -8,6 +8,7 @@ require_once '../vendor/autoload.php';
 require_once '../app/controllers/IndexController.php';
 require_once '../app/controllers/JobsController.php';
 require_once '../app/controllers/ProjectController.php';
+require_once '../app/controllers/UserController.php';
 
 use Illuminate\Database\Capsule\Manager as Capsule;
 use Aura\Router\RouterContainer;
@@ -62,6 +63,14 @@ $map->post('saveProjects', '/projects/add', [
   'controller' => 'app\controllers\ProjectController',
   'action' => 'getAddProjectAction'
 ]);
+$map->get('addUsers', '/users/add', [
+  'controller' => 'app\controllers\UserController',
+  'action' => 'getAddUserAction'
+]);
+$map->post('saveUsers', '/users/add', [
+  'controller' => 'app\controllers\UserController',
+  'action' => 'getAddUserAction'
+]);
 
 $matcher = $routerContainer->getMatcher();
 $route = $matcher->match($request);
@@ -96,6 +105,8 @@ else
   $actionName = $handlerData['action'];
 
   $controller = new $controllerName;
-  $controller->$actionName($request);
+  $response = $controller->$actionName($request);
+
+  echo $response -> getBody();
 }
 

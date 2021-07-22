@@ -2,9 +2,10 @@
 namespace app\controllers;
 require_once '..\app\models\Job.php';
 require_once '..\app\models\Project.php';
+require_once '..\app\controllers\BaseController.php';
 use app\models\{Job, Project};
 
-class IndexController
+class IndexController extends BaseController
 {
     public function indexAction()
     {
@@ -13,6 +14,9 @@ class IndexController
         $name = 'Enrique Cercado';
         $limitMonths = 2000;
 
-        include '../views/index.php';
+        return $this -> renderHTML('index.twig', [
+            'name' => $name,
+            'jobs' => $jobs
+        ]);
     }
 }
