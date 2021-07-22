@@ -34,10 +34,10 @@ class JobsController extends BaseController
                     $logo -> moveTo("uploads/$fileName");
                 }
 
-                //$job = new Job();
-                //$job -> title = $postData['title'];
-                //$job -> description = $postData['description'];
-                //$job -> save();
+                $job = new Job();
+                $job -> title = $postData['title'];
+                $job -> description = $postData['description'];
+                $job -> save();
 
                 $responseMessage = 'Saved';
             }
