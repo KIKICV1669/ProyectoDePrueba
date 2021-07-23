@@ -14,20 +14,23 @@ require_once '../app/controllers/AdminController.php';
 
 session_start();
 
+$dotenv = Dotenv\Dotenv :: createUnsafeImmutable(__DIR__ . '/..');
+$dotenv -> load();
+
 use Illuminate\Database\Capsule\Manager as Capsule;
 use Aura\Router\RouterContainer;
 
 $capsule = new Capsule;
 
 $capsule->addConnection([
-    'driver' => 'mysql',
-    'host' => 'localhost',
-    'database' => 'cursophp',
-    'username' => 'root',
-    'password' => '',
-    'charset' => 'utf8',
+    'driver'    => 'mysql',
+    'host'      => getenv('DB_HOST'),
+    'database'  => getenv('DB_NAME'),
+    'username'  => getenv('DB_USER'),
+    'password'  => getenv('DB_PASS'),
+    'charset'   => 'utf8',
     'collation' => 'utf8_unicode_ci',
-    'prefix' => '',
+    'prefix'    => '',
 ]);
 
   // Make this Capsule instance available globally via static methods... (optional)
